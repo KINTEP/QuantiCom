@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block body %}
+    <div class="row">
+    	{% for product in products %}
+    	<div class="col-3">
+    		<div class="items" style="border: 2px solid red; margin-top: 2%;">
+	    		{% include "includes/_products.html"%}
+	    	</div>
+    	</div>
+    	{% endfor %}
+    </div>
+<script type="text/javascript">
+	function Ajax (route, method){
+		if (method === "GET"){
+			request = new XMLHttpRequest();
+			request.open(method, `/${route}`);
+
+			request.onload =function (){
+				response = request.responseText;
+			}
+
+
+			request.send();
+		}
+	}
+
+	window.onload = function(){
+		console.log('Hello Sir');
+	}
+</script>
+{% endblock %}
