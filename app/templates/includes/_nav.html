@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-lg navbar-dark mb-2 mt-2" id="main-bar">
+    <a class="navbar-brand text-warning" href="{{url_for('main.home')}}">QuantiCom</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+     <form action="/search" method="get" class="w-100 m-0" style="padding-right: 20%;">
+                <div class="input-group-append rounded-left">
+                    <input type="text" class="form-control rounded-left form-control-sm" autocomplete="off" style="float: left; border-radius: 0;" name="q" placeholder="What you want...">
+                    <button class="btn btn-success btn-sm rounded-right" style="border-radius: 0;" type="submit">Search</button>
+            </div>
+    </form>
+
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto">
+    
+        <li class="nav-item text-info btn btn-danger ml-2" id="account" data-page = "account">{{current_user.username}}</li>
+        <li class="nav-item text-info btn btn-danger ml-2" id="addproduct" data-page = "addproduct">Add Product</li>
+        <li class="nav-item text-info btn btn-danger ml-2" id="logout" data-page = "Logout">Logout</li>
+        
+        <li class="nav-item text-info btn btn-danger ml-2" id="signin" data-page = "register">Login</li>
+        <li class="nav-item text-info btn btn-danger ml-2" id="register" data-page = "register">Register</li>                 
+  </ul>
+</div>
+
+</nav>

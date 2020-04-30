@@ -1,4 +1,5 @@
 import os
+from app.extensions import basedir
 
 class Config:
 	SECRET_KEY = os.environ.get('SECRET_KEY')
@@ -10,5 +11,6 @@ class Config:
 	MAIL_USE_TLS = True
 	MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
 	MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+	UPLOADED_PHOTOS_DEST = os.path.join(basedir, 'static/images')
 
 	

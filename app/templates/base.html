@@ -28,6 +28,32 @@
         {% block body %}  {% endblock %}
         </div>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+
     </body>
     {% include 'includes/_footer.html' %}
+            
+<script type="text/javascript">
+function homeAjax (){
+            request = new XMLHttpRequest();
+            request.open("GET", "/home", true);
+
+            request.onload =function (){
+                response = request.responseText;
+                document.querySelector('body').innerHTML = response;
+                return false;
+            }
+            
+            request.send();
+        
+    }
+
+   
+
+        window.onload = function(){
+        elem1 = document.querySelector("#home");
+        elem1.onclick = function () {
+            homeAjax();
+        }
+    }
+</script>
 </html>

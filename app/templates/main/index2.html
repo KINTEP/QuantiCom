@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Mens Hut</title>
+
+
+
+<script type="text/javascript">
+function productsAjax (){
+            request = new XMLHttpRequest();
+            request.open("GET", "/addproducts", true);
+
+            request.onload =function (){
+                response = request.responseText;
+                document.querySelector('body').innerHTML = response;
+                return false;
+            }
+            
+            request.send();
+        
+    }
+
+   
+
+        window.onload = function(){
+        elem1 = document.querySelector("#addproduct");
+        elem1.onclick = function () {
+            productsAjax();
+        }
+    }
+</script>
+        <meta charset="utf-8">
+        <link rel="icon" href="{{ url_for('static', filename='image/other/logo_icon.png') }}" type="image/x-icon">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+    <body style="background-image: url({{ url_for('static', filename='image/nice.jpg') }}); margin-top: 57px">
+        {% include 'includes/_navbar.html' %}
+        <div class="container">
+            {% with messages = get_flashed_messages(with_categories = true)%}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{category}}">
+                  {{message}}
+                </div>
+      
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </div>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+    </body>
+    {% include 'includes/_footer.html' %}
+</html>

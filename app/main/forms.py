@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileAllowed
+from flask_wtf.file import FileField, FileAllowed, FileRequired
 from wtforms import StringField, SubmitField, TextAreaField, SelectField, FloatField, IntegerField
 from wtforms.validators import DataRequired
 
@@ -12,5 +12,13 @@ class ProductForm(FlaskForm):
     quantity = IntegerField("Quantity", validators = [DataRequired()])
     price = FloatField("Price per unit", validators =[DataRequired()])
     describe = TextAreaField('Brief Description')
-    image = FileField("Upload Picture1", validators = [FileAllowed(['jpeg', 'png','jpg', 'jfif'])])
+    image = FileField("Upload Picture1", validators = [FileRequired(), FileAllowed(['jpeg', 'png','jpg', 'jfif'])])
     submit = SubmitField("Add")
+
+
+class OrderForm(FlaskForm):
+    name = StringField('Name', validators =[DataRequired()])
+    quantity = SelectField('Choose your category', validators = [DataRequired()], 
+        choices=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4')])
+    mobile = IntegerField("Quantity", validators = [DataRequired()])
+    submit = SubmitField("Order Now")

@@ -9,23 +9,6 @@
     	</div>
     	{% endfor %}
     </div>
-<script type="text/javascript">
-	function Ajax (route, method){
-		if (method === "GET"){
-			request = new XMLHttpRequest();
-			request.open(method, `/${route}`);
-
-			request.onload =function (){
-				response = request.responseText;
-			}
 
 
-			request.send();
-		}
-	}
-
-	window.onload = function(){
-		console.log('Hello Sir');
-	}
-</script>
 {% endblock %}

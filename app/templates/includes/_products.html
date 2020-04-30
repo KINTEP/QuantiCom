@@ -1,6 +1,27 @@
+
+<!--
 <div>
-	<p>Product Name: {{product.name}}</p>
-	<p>Product category: {{product.category}}</p>
-	<p>Product brand: {{product.brand}}</p>
-	<p>Product Supplier: {{product.supplier.name}}</p>
+	<p class="text-success">Product Name: {{product.name}}</p>
+	<img src="{{url_for('static', filename = 'images/' + product.image)}}" width="150" 
+	height="150" style="background: white;">
+	<div class="btn btn-success mt-1" style="text-align: right;">Order</div>
+</div>
+<div class="card-img-top" style="background: url('static/images/{{product.image}}'); background-repeat:no-repeat; background-size: cover; height:200px;width:100% "></div>
+<a href="" class="float-right btn btn-sm btn-primary">Add To Cart</a>
+-->
+
+<div class="card mb-auto mr-auto" style="border: 2px solid gold;">
+	<a href="{{url_for('main.productdetails', id = product.id)}}" class="btn" style="border-bottom: 2px solid red;">
+		<img src="{{url_for('static', filename = 'images/' + product.image)}}" width="150" 
+		height="200" style="background: white; width: 100%">
+	</a>
+    <div class="card-body">
+        <h5>
+        		<a class="card-title" href="/{{product.category}}?view={{product.id}}">{{ product.name}}</a></h5>
+        <h4>
+        {% include "main/cart.html"%}
+        ${{product.price}}
+        </h4>
+        
+    </div>
 </div>

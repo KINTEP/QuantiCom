@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm fixed-top">
-    <a class="navbar-brand" href="{{url_for('main.index')}}">Quanticom</a>
+    <a class="navbar-brand" href="{{url_for('main.index2')}}">Quanticom</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
             aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -15,14 +15,15 @@
         </div>
         <ul class="navbar-nav ml-auto">
             {% if current_user.is_authenticated %}
-            <li class="nav-item"><a href="{{url_for('main.index')}}" class="nav-link"><span class=""></span> Home</a></li>
-            <li class="nav-item"><a href="" class="nav-link"><span class=""></span>{{current_user.name}}</a>
+            <div class = "btn" id = "div1">Hi</div>
+            <span class="btn" id="home">Home</span> 
+            <li class="nav-item"><a href="{{url_for('main.account', username = current_user.username)}}" class="nav-link"><span class=""></span>{{current_user.name}}</a>
             </li>
-            <li class="nav-item"><a href="{{url_for('main.addproduct')}}" class="nav-link"><span class=""></span>Add</a>
+            <span class="btn" id="addproduct">Add</span>
             </li>
-            <li class="nav-item"><a href="{{url_for('auth.logout')}}" class="nav-link"><span class=""></span> Logout</a></li>
+            <li class="nav-item"><a href="{{url_for('auth.register')}}" class="nav-link"><span class=""></span> Logout</a></li>
             {% else %}
-            <li class="nav-item"><a href="/" class="nav-link"><span class=""></span> Home</a></li>
+            <li class="nav-item"><a href="" class="nav-link"><span class=""></span> Home</a></li>
             <li class="nav-item"><a href="{{url_for('auth.register')}}" class="nav-link"><span class=""></span> Signup</a></li>
             <li class="nav-item"><a href="{{url_for('auth.login')}}" class="nav-link"><span class=""></span> Login</a></li>
             {% endif %}

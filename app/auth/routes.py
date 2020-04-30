@@ -10,7 +10,7 @@ auth = Blueprint('auth', __name__)
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
 	if current_user.is_authenticated:
-		return redirect(url_for('main.index'))
+		return redirect(url_for('main.home'))
 	form = RegistrationForm()
 	if form.validate_on_submit():
 		name = form.name.data
@@ -29,15 +29,13 @@ def register():
 @auth.route("/login", methods = ["GET", "POST"])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.home'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email = form.email.data).first()
         if user and check_password_hash(user.password, form.password.data):
             login_user(user)
-            #next_page = request.args.get('next') #This has something to do with 'next' parameter as it appears in the url
-            #return redirect(next) if next_page else redirect(url_for('main.index'))
-            return redirect(url_for('main.index'))
+            return redirect(url_for('main.home'))
         else:
             flash("Login unsuccessful, please try again", 'danger')
     return render_template("auth/login.html", form = form)
