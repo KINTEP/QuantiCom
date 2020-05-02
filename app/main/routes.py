@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, flash, redirect,url_for, request
-from app.main.forms import ProductForm
+from app.main.forms import ProductForm, CheckOutForm
 from app.auth.forms import LoginForm
 from app.models import Product, User, Cart
 from flask_login import login_required, current_user
@@ -19,7 +19,8 @@ def home():
 @main.route('/', methods = ["GET", "POST"])
 @main.route('/home', methods = ["GET", "POST"])
 def home():
-	products = Product.query.all()
+	products = Product.query.order_by(Product.date.desc()).all()
+	#products = Product.query.all()
 	return render_template('main/home.html', products = products)
 
 
@@ -50,7 +51,7 @@ def account(username):
     user = User.query.filter_by(username=username).first_or_404()
     products = Product.query.filter_by(supplier=user)
     #image_file = url_for('static', filename = 'img/' + user.image_file)
-    return render_template('main/account.html', user = user, products = products)
+    return render_template('main/account.html', user = user, products = products, title = user.name)
 
 @main.route("/productdetails/<int:id>")
 def productdetails(id):
@@ -60,13 +61,40 @@ def productdetails(id):
 @main.route("/cart", methods = ["GET", "POST"])
 def cart():
 	product_id = request.form.get("product_id")
-	print(product_id)
-	#product = Product.query.get_or_404(product_id)
-	cart = Cart(carter = current_user.id, cart_product = product_id)
+	#if product_id:
+	product = Product.query.get_or_404(product_id)
+	print(product)
+	cart = Cart(carter = current_user, cart_product = product)
 	db.session.add(cart)
 	db.session.commit()
-	flash("This product has been added to your cart")
-	return render_template('main/cart.html', product = product, id = product.id)
+	flash("This product has been added to your cart", "success")
+	return redirect(url_for('main.display_cart'))
+
+@main.route("/user/display_cart")
+def display_cart():
+	carts = Cart.query.filter_by(customer_id = current_user.id)
+	total = carts.count()
+	return render_template('main/cart.html', carts = carts, total= total)
+
+@main.route("/user/checkout", methods = ["GET", "POST"])
+def checkout():
+	form = CheckOutForm()
+	product_id = request.form.get("product_id")
+	#print(product_id)
+	return render_template('main/checkout.html', product_id = product_id, form = form)
+
+@main.route('/deletecat/<int:id>', methods=['GET','POST'])
+def deletecat(id):
+    cart = Cart.query.get_or_404(id)
+    if request.method=="POST":
+        db.session.delete(cart)
+        flash(f"The brand {cart.cart_product.name} was deleted from your database","success")
+        db.session.commit()
+        return redirect(url_for('main.display_cart'))
+    flash(f"The brand {cart.cart_product.name} can't be  deleted from your database","warning")
+    return redirect(url_for('main.display_cart'))
+
+
 
 
 

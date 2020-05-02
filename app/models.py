@@ -20,6 +20,9 @@ class User(UserMixin, db.Model):
 	check = db.relationship('CheckOut', backref = 'buyer', lazy = 'dynamic')
 	fav = db.relationship('Favorite', backref = 'faver', lazy = 'dynamic')
 
+	def __repr__(self):
+		return f'{self.name}'
+
 	
 class Product(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
@@ -38,6 +41,9 @@ class Product(db.Model):
 	check_product = db.relationship('CheckOut', backref = 'check_product', lazy = 'dynamic')
 	fav_product = db.relationship('Favorite', backref = 'fav_product', lazy = 'dynamic')
 
+	def __repr__(self):
+		return f'{self.name}'
+
 	
 class Order(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
@@ -49,12 +55,18 @@ class Order(db.Model):
 	ddate = db.Column(db.DateTime())
 	is_delivered = db.Column(db.Boolean, default = "no")
 
+	def __repr__(self):
+		return f'{self.name}'
+
 
 class Cart(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	customer_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
 	product = db.Column(db.Integer, db.ForeignKey('product.id'), nullable = False)
 	timestamp = db.Column(db.DateTime(), default = datetime.utcnow)
+
+	def __repr__(self):
+		return f'{self.product}'
 	"""
 	def set_price(self):
 		self.price = self.product.price
@@ -72,6 +84,9 @@ class CheckOut(db.Model):
 	quantity = db.Column(db.Integer)
 	timestamp = db.Column(db.DateTime(), default = datetime.utcnow)
 
+	def __repr__(self):
+		return f'{self.product}'
+
 	def set_price(self):
 		self.price = self.product.price
 
@@ -84,6 +99,9 @@ class Favorite(db.Model):
 	customer = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
 	product = db.Column(db.Integer, db.ForeignKey('product.id'), nullable = False)
 	timestamp = db.Column(db.DateTime(), default = datetime.utcnow)#
+
+	def __repr__(self):
+		return f'{self.product}'
 	"""
 	def set_price(self):
 		self.price = self.product.price
@@ -95,6 +113,9 @@ class Search(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	key_word = db.Column(db.String())
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
+
+	def __repr__(self):
+		return f'{self.key_word}'
 
 
 

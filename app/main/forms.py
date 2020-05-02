@@ -22,3 +22,12 @@ class OrderForm(FlaskForm):
         choices=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4')])
     mobile = IntegerField("Quantity", validators = [DataRequired()])
     submit = SubmitField("Order Now")
+
+
+class CheckOutForm(FlaskForm):
+    customer = StringField('Customer', validators =[DataRequired()])
+    product = StringField('The Product')
+    supplier = StringField('The Supplier')
+    quantity = IntegerField("Quantity", validators = [DataRequired()])
+    price = FloatField("Price per unit", validators =[DataRequired()])
+    submit = SubmitField("Order")

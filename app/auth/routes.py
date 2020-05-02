@@ -18,7 +18,9 @@ def register():
 		username = form.username.data
 		password = generate_password_hash(form.password.data)
 		mobile = form.mobile.data
+
 		user = User(name = name, email = email, username = username, password = password, mobile = mobile)
+		
 		db.session.add(user)
 		db.session.commit()
 		flash('You are now registered and can login', 'success')
